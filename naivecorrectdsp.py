@@ -10,72 +10,53 @@ class ReenteredException(Exception):
 
 vals = {}
 determinefuncs = {}
+reading = set()
 
-class Value:
-    def __init__(self, vallabel, statelabel, determinefunc):
+def read( valandstatetuple ):
 
-        self.vallabel = vallabel
-        self.statelabel = statelabel
-        self.hasbeenentered = False
+    # guard against circular dependencies while reading
+    if valandstatetuple in reading:
+        raise ReenteredException("reentered!")
+    reading.add(valandstatetuple)
 
-        # add me to the global hashes of labeled vals
-        if self.vallabel not in vals.keys():
-            # add an initial state dict for this value if it doesn't exist
-            vals[self.vallabel] = {}
-        vals[vallabel][statelabel] = self
+    # compute and cache the value at this state if it hasn't been computed yet
+    if valandstatetuple not in vals.keys():
+        vallabel,statelabel = valandstatetuple
+        vals[valandstatetuple] = determinefuncs[vallabel](statelabel)
 
-        # add my determinefunc to 
-        determinefuncs[self.vallabel] = determinefunc
-
-    def read(self):
-
-        if self.hasbeenentered:
-            raise ReenteredException("reentered!")
-        self.hasbeenentered = True
-
-        # determine my value at this state if it's not cached
-        if not state in self.knownvalues.keys():
-            self.knownvalues[state] = self.determinefunc(state)
-
-        self.hasbeenentered = False
-        return self.knownvalues[state]
+    # done reading
+    reading.remove(valandstatetuple)
+    return vals[valandstatetuple]
 
 
-
-
+# setup the internal functions that are used to update each value
 # circular delay line
-'cella' = Value( lambda time: vals['celle'].read(time-1) )
-'cellb' = Value( lambda time: vals['cella'].read(time-1) )
-'cellc' = Value( lambda time: vals['cellb'].read(time-1) )
-'celld' = Value( lambda time: vals['cellc'].read(time-1) )
-'celle' = Value( lambda time: vals['celld'].read(time-1) )
+determinefuncs['cella'] = lambda time: read( ('celle', time-1 ) )
+determinefuncs['cellb'] = lambda time: read( ('cella', time-1 ) )
+determinefuncs['cellc'] = lambda time: read( ('cellb', time-1 ) )
+determinefuncs['celld'] = lambda time: read( ('cellc', time-1 ) )
+determinefuncs['celle'] = lambda time: read( ('celld', time-1 ) )
 
-
-# values at the initial time:
-vals['cella'].knownvalues[0] = 0
-vals['cellb'].knownvalues[0] = 1
-vals['cellc'].knownvalues[0] = 0
-vals['celld'].knownvalues[0] = 0
-vals['celle'].knownvalues[0] = 0
-
-
+# initial values
+vals[('cella',0)] = 0
+vals[('cellb',0)] = 1
+vals[('cellc',0)] = 0
+vals[('celld',0)] = 0
+vals[('celle',0)] = 0
 
 # determine the values at the end
-vals['cella'].read(15)
-vals['cellb'].read(15)
-vals['cellc'].read(15)
-vals['celld'].read(15)
-vals['celle'].read(15)
+# read at the final times.  this should populate all the cells at all timesteps
+# then print out the values
+read( ('cella', 15) )
+read( ('cellb', 15) )
+read( ('cellc', 15) )
+read( ('celld', 15) )
+read( ('celle', 15) )
+for i in range(16):
+    print vals[('cella',i)], vals[('cellb',i)], vals[('cellc',i)], vals[('celld',i)], vals[('celle',i)]
 
-
-
-
-
-
-
-
-
-
-
+print "alternatively, compute one at a time:"
+for i in range(16):
+    print read(('cella',i)), read(('cellb',i)), read(('cellc',i)), read(('celld',i)), read(('celle',i))
 
 # vim:sw=4:ts=4:ai:et
