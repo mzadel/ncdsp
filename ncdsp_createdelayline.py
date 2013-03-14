@@ -58,7 +58,7 @@ createdelayline( 'yummy', 40 )
 determinefuncs['yummy_input'] = lambda state: 0
 vals[('yummy_input',0)] = 1
 
-for time in range(15):
+for time in range(50):
     for cellnum in range( 40 ):
         cellname = 'yummy_{0}'.format(cellnum)
         cellvalue = read((cellname,time))
