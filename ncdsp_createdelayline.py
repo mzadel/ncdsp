@@ -43,13 +43,14 @@ def createdelayline( name, numberofcells ):
     # name_output reads from the last cell at the current time
     determinefuncs['{0}_output'.format(name)] = eval( "lambda time: read( ('{0}_{1}',time) )".format(name,numberofcells-1) )
 
-    # fill the delay line with zeroes at time zero
-    for i in range(numberofcells):
+    # fill the delay line with zeroes at time zero, except for the first cell
+    # (so that it'll pull its value from name_input)
+    for i in range(1,numberofcells):
         vals[( '{0}_{1}'.format(name,i), 0 )] = 0
 
 
 # create the delay line
-createdelayline( 'yummy', 4 )
+createdelayline( 'yummy', 40 )
 
 # set up the input
 # always return 0, unless it's the first timestep
@@ -57,39 +58,12 @@ createdelayline( 'yummy', 4 )
 determinefuncs['yummy_input'] = lambda state: 0
 vals[('yummy_input',0)] = 1
 
-#print determinefuncs.keys()
-#print
-#print vals.keys()
-#print
-
-
-print 'before loop'
 for time in range(15):
-    print 'time', time
-    for cell in range( 4 ):
-        print 'cell', cell
-        cellname = 'yummy_{0}'.format(cell)
-        sys.stdout.write(chr(read((cellname,time))))
+    for cellnum in range( 40 ):
+        cellname = 'yummy_{0}'.format(cellnum)
+        cellvalue = read((cellname,time))
+        sys.stdout.write(repr(cellvalue))
     sys.stdout.write("\n")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # vim:sw=4:ts=4:ai:et
