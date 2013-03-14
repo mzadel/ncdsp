@@ -14,6 +14,9 @@
 # have a reference to compare against when you're implementing a more efficient
 # version of the algorithm
 
+# this approach should make it easier to implement a set of time-domain
+# recurrence functions, or a system block diagram
+
 # there's a danger that you'll get a stack overflow if you don't have a base
 # case for the recursion back through time, so you have to ensure that you have
 # that in place
