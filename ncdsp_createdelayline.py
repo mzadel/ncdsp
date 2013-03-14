@@ -35,13 +35,13 @@ def createdelayline( name, numberofcells ):
     for i in range(1,numberofcells):
         cellname = '{0}_{1}'.format( name, i )
         # take the value of the previous cell at the previous timestep
-        determinefuncs[cellname] = eval( "lambda time: read( ({0}_{1},time-1) )".format(name,i-1) )
+        determinefuncs[cellname] = eval( "lambda time: read( ('{0}_{1}',time-1) )".format(name,i-1) )
 
     # cell 0 reads from name_input at the current time
-    determinefuncs['{0}_0'.format(name)] = eval( "lambda time: read( ({0}_input,time) )".format(name) )
+    determinefuncs['{0}_0'.format(name)] = eval( "lambda time: read( ('{0}_input',time) )".format(name) )
 
     # name_output reads from the last cell at the current time
-    determinefuncs['{0}_output'.format(name)] = eval( "lambda time: read( ({0}_{1},time) )".format(name,numberofcells-1) )
+    determinefuncs['{0}_output'.format(name)] = eval( "lambda time: read( ('{0}_{1}',time) )".format(name,numberofcells-1) )
 
     # fill the delay line with zeroes at time zero
     for i in range(numberofcells):
