@@ -6,48 +6,7 @@
 
 import sys
 
-class ReenteredException(Exception):
-    pass
-
-vals = {}
-determinefuncs = {}
-reading = set()
-
-def read( valandstatetuple ):
-
-    # guard against circular dependencies while reading
-    if valandstatetuple in reading:
-        raise ReenteredException("reentered!")
-    reading.add(valandstatetuple)
-
-    # compute and cache the value at this state if it hasn't been computed yet
-    if valandstatetuple not in vals.keys():
-        vallabel,statelabel = valandstatetuple
-        vals[valandstatetuple] = determinefuncs[vallabel](statelabel)
-
-    # done reading
-    reading.remove(valandstatetuple)
-    return vals[valandstatetuple]
-
-# automatically create a delay line
-def createdelayline( name, numberofcells ):
-
-    for i in range(1,numberofcells):
-        cellname = '{0}_{1}'.format( name, i )
-        # take the value of the previous cell at the previous timestep
-        determinefuncs[cellname] = eval( "lambda time: read( ('{0}_{1}',time-1) )".format(name,i-1) )
-
-    # cell 0 reads from name_input at the current time
-    determinefuncs['{0}_0'.format(name)] = eval( "lambda time: read( ('{0}_input',time) )".format(name) )
-
-    # name_output reads from the last cell at the current time
-    determinefuncs['{0}_output'.format(name)] = eval( "lambda time: read( ('{0}_{1}',time) )".format(name,numberofcells-1) )
-
-    # fill the delay line with zeroes at time zero, except for the first cell
-    # (so that it'll pull its value from name_input)
-    for i in range(1,numberofcells):
-        vals[( '{0}_{1}'.format(name,i), 0 )] = 0
-
+from ncdsp import *
 
 # create the delay line
 createdelayline( 'yummy', 40 )
@@ -57,6 +16,7 @@ createdelayline( 'yummy', 40 )
 # introduce an impulse at the first timestep
 determinefuncs['yummy_input'] = lambda state: 0
 vals[('yummy_input',0)] = 1
+vals[('yummy_input',7)] = 5
 
 for time in range(50):
     for cellnum in range( 40 ):
