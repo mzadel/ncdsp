@@ -4,6 +4,20 @@
 # naivecorrectdsp.py
 #
 
+# the idea behind this is to make it easier to reason about dsp code
+# each value at each timestep is kept in a global table indexed by (valuelabel,statelabel)
+# read((valuelabel,statelabel)) returns the appropriate value, cacheing the value as necessary
+# it raises an exception if you try to recursively read a given value (which
+# means there's circular dependency)
+
+# once you populate all the values, you can print the sequences so that you
+# have a reference to compare against when you're implementing a more efficient
+# version of the algorithm
+
+# there's a danger that you'll get a stack overflow if you don't have a base
+# case for the recursion back through time, so you have to ensure that you have
+# that in place
+
 
 class ReenteredException(Exception):
     pass
