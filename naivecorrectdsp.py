@@ -9,14 +9,25 @@ class ReenteredException(Exception):
     pass
 
 vals = {}
+determinefuncs = {}
 
 class Value:
-    def __init__(self,determinefunc):
-        self.determinefunc = determinefunc
-        self.hasbeenentered = False
-        self.knownvalues = {}
+    def __init__(self, vallabel, statelabel, determinefunc):
 
-    def read(self,state):
+        self.vallabel = vallabel
+        self.statelabel = statelabel
+        self.hasbeenentered = False
+
+        # add me to the global hashes of labeled vals
+        if self.vallabel not in vals.keys():
+            # add an initial state dict for this value if it doesn't exist
+            vals[self.vallabel] = {}
+        vals[vallabel][statelabel] = self
+
+        # add my determinefunc to 
+        determinefuncs[self.vallabel] = determinefunc
+
+    def read(self):
 
         if self.hasbeenentered:
             raise ReenteredException("reentered!")
@@ -31,12 +42,13 @@ class Value:
 
 
 
+
 # circular delay line
-vals['cella'] = Value( lambda time: vals['celle'].read(time-1) )
-vals['cellb'] = Value( lambda time: vals['cella'].read(time-1) )
-vals['cellc'] = Value( lambda time: vals['cellb'].read(time-1) )
-vals['celld'] = Value( lambda time: vals['cellc'].read(time-1) )
-vals['celle'] = Value( lambda time: vals['celld'].read(time-1) )
+'cella' = Value( lambda time: vals['celle'].read(time-1) )
+'cellb' = Value( lambda time: vals['cella'].read(time-1) )
+'cellc' = Value( lambda time: vals['cellb'].read(time-1) )
+'celld' = Value( lambda time: vals['cellc'].read(time-1) )
+'celle' = Value( lambda time: vals['celld'].read(time-1) )
 
 
 # values at the initial time:
