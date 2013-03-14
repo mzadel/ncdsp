@@ -1,5 +1,5 @@
 
-class ReenteredException(Exception):
+class ReenteredRead(Exception):
     pass
 
 
@@ -12,7 +12,7 @@ def read( valandstatetuple ):
 
     # guard against circular dependencies while reading
     if valandstatetuple in reading:
-        raise ReenteredException("reentered!")
+        raise ReenteredRead("reentered!")
     reading.add(valandstatetuple)
 
     # compute and cache the value at this state if it hasn't been computed yet
