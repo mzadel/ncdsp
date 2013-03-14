@@ -8,8 +8,8 @@
 
 from ncdsp import *
 
-determinefuncs['cella'] = lambda time: read( ('cellb',time) )
-determinefuncs['cellb'] = lambda time: read( ('cella',time) )
+valfuncs['cella'] = lambda time: read( ('cellb',time) )
+valfuncs['cellb'] = lambda time: read( ('cella',time) )
 
 vals[('cella',0)] = 0
 vals[('cellb',0)] = 1

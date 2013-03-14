@@ -14,7 +14,7 @@ createdelayline( 'yummy', 40 )
 # set up the input
 # always return 0, unless it's the first timestep
 # introduce an impulse at the first timestep
-determinefuncs['yummy_input'] = lambda state: 0
+valfuncs['yummy_input'] = lambda state: 0
 vals[('yummy_input',0)] = 1
 vals[('yummy_input',7)] = 5
 

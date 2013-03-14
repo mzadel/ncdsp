@@ -25,11 +25,11 @@ from ncdsp import *
 
 # setup the internal functions that are used to update each value
 # circular delay line
-determinefuncs['cella'] = lambda time: read( ('celle', time-1 ) )
-determinefuncs['cellb'] = lambda time: read( ('cella', time-1 ) )
-determinefuncs['cellc'] = lambda time: read( ('cellb', time-1 ) )
-determinefuncs['celld'] = lambda time: read( ('cellc', time-1 ) )
-determinefuncs['celle'] = lambda time: read( ('celld', time-1 ) )
+valfuncs['cella'] = lambda time: read( ('celle', time-1 ) )
+valfuncs['cellb'] = lambda time: read( ('cella', time-1 ) )
+valfuncs['cellc'] = lambda time: read( ('cellb', time-1 ) )
+valfuncs['celld'] = lambda time: read( ('cellc', time-1 ) )
+valfuncs['celle'] = lambda time: read( ('celld', time-1 ) )
 
 # initial values
 vals[('cella',0)] = 0
