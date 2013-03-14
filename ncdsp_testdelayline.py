@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-# ncdsp_createdelayline.py
+# ncdsp_testdelayline.py
 #
 
 import sys
