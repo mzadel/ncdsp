@@ -6,6 +6,7 @@
 
 import sys
 
+from ncdsphelpers import *
 from ncdsp import *
 
 # create the delay line
