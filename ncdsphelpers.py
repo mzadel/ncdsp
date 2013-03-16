@@ -32,10 +32,10 @@ def createdelayline( name, numberofcells ):
         valfuncs[(name,i)] = makefunc(name,i)
 
     # cell 0 reads from name_firstcell at the current time
-    valfuncs[(name,0)] = lambda time: read( (name+'_firstcell',time) )
+    connect( (name,0), name+'_firstcell' )
 
     # name_lastcell reads from the last cell at the current time
-    valfuncs[name+'_lastcell'] = lambda time: read( ((name,numberofcells-1),time) )
+    connect( name+'_lastcell', (name,numberofcells-1) )
 
     # fill the delay line with zeroes at time zero, except for the first cell
     # (so that it'll pull its value from name_firstcell)
