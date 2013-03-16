@@ -12,7 +12,7 @@ def read( valandstatetuple ):
 
     # guard against circular dependencies while reading
     if valandstatetuple in reading:
-        raise ReenteredRead("reentered!")
+        raise ReenteredRead('reentered while reading key {0}'.format(repr(valandstatetuple)))
     reading.add(valandstatetuple)
 
     # compute and cache the value at this state if it hasn't been computed yet
