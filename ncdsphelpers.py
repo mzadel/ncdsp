@@ -7,11 +7,11 @@ from ncdsp import *
 #
 # Each cell passes its value to the next cell in the chain at each timestep.
 #
-# You supply the delay line name as an argument.  The value 'name_output' is an
-# alias for the last cell in the chain.
+# You supply the delay line name as an argument.  The value 'name_lastcell' is
+# an alias for the last cell in the chain.
 #
-# You additionally have to define a value called 'name_input', which the first
-# cell in the chain takes its value from.
+# You additionally have to define a value called 'name_firstcell', which the
+# first cell in the chain takes its value from.
 
 def createdelayline( name, numberofcells ):
 
@@ -19,8 +19,8 @@ def createdelayline( name, numberofcells ):
         # labels for each cell are (name,cellnum) tuples
         # each cell gets the value of the previous cell at the previous timestep
 
-        # define the valfuncs for each of the cells.
-        # problem: if we just pass in name and i into a lambda, they'll refer
+    # define the valfuncs for each of the cells.
+    # problem: if we just pass in name and i into a lambda, they'll refer
         # to the variables in the closure, which'll be the last values they
         # were set to in the loop.
         # instead, makefunc() returns the lambda we need.  we supply the name
@@ -31,14 +31,14 @@ def createdelayline( name, numberofcells ):
             return lambda time: read( ( ( name, i-1 ), time-1 ) )
         valfuncs[(name,i)] = makefunc(name,i)
 
-    # cell 0 reads from name_input at the current time
-    valfuncs[(name,0)] = lambda time: read( (name+'_input',time) )
+    # cell 0 reads from name_firstcell at the current time
+    valfuncs[(name,0)] = lambda time: read( (name+'_firstcell',time) )
 
-    # name_output reads from the last cell at the current time
-    valfuncs[name+'_output'] = lambda time: read( ((name,numberofcells-1),time) )
+    # name_lastcell reads from the last cell at the current time
+    valfuncs[name+'_lastcell'] = lambda time: read( ((name,numberofcells-1),time) )
 
     # fill the delay line with zeroes at time zero, except for the first cell
-    # (so that it'll pull its value from name_input)
+    # (so that it'll pull its value from name_firstcell)
     for i in range(1,numberofcells):
         vals[( '{0}_{1}'.format(name,i), 0 )] = 0
 
