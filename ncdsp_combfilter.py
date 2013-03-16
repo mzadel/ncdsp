@@ -1,18 +1,10 @@
 #!/usr/bin/python
 
 from ncdsp import *
+from ncdsphelpers import feedforwardcomb, feedbackcomb
 
 
 # -(feedforward)--------------------------------------------
-
-# feedforward comb filter
-# see https://ccrma.stanford.edu/~jos/pasp/Feedforward_Comb_Filters.html
-# defines name_out value for output
-# depends on external definition of name_in, from which it takes its input
-def feedforwardcomb( name, b0, bM, M ):
-    y = name+'_out'
-    x = name+'_in'
-    valfuncs[y] = lambda n: b0 * read((x,n)) + bM * read((x,n-M))
 
 feedforwardcomb('ffc', 1, 0.5, 10 )
 
@@ -30,17 +22,6 @@ for t in range(50):
 # clear out the previous state
 vals.clear()
 valfuncs.clear()
-
-# feedback comb filter
-# see https://ccrma.stanford.edu/~jos/pasp/Feedback_Comb_Filters.html
-# defines name_out value for output
-# depends on external definition of name_in, from which it takes its input
-# NB: assumes name_out is set to zero for time < 0 (to provide base cases for
-# the the recurrence in y)
-def feedbackcomb( name, b0, aM, M ):
-    y = name+'_out'
-    x = name+'_in'
-    valfuncs[y] = lambda n: b0 * read((x,n)) - aM * read((y,n-M)) if n>=0 else 0
 
 feedbackcomb('fbc', 0.8, 0.1, 10 )
 
