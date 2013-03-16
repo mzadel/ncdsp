@@ -20,10 +20,17 @@ vals[('yummy_input',0)] = 1
 vals[('yummy_input',7)] = 5
 
 for time in range(50):
+
+    # print the input value
+    print 'yummy_input:', read(('yummy_input',time)), '         ' ,
+
+    # print the delay line contents for this timestep
     for cellnum in range( 40 ):
         cellvalue = read((('yummy',cellnum),time))
         sys.stdout.write(repr(cellvalue))
-    sys.stdout.write("\n")
+
+    # print the output value
+    print '          yummy_output:', read(('yummy_output',time))
 
 
 # vim:sw=4:ts=4:ai:et
