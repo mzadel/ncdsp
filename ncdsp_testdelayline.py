@@ -21,8 +21,7 @@ vals[('yummy_input',7)] = 5
 
 for time in range(50):
     for cellnum in range( 40 ):
-        cellname = 'yummy_{0}'.format(cellnum)
-        cellvalue = read((cellname,time))
+        cellvalue = read((('yummy',cellnum),time))
         sys.stdout.write(repr(cellvalue))
     sys.stdout.write("\n")
 
