@@ -24,3 +24,4 @@ def read( valandstatetuple ):
     reading.remove(valandstatetuple)
     return vals[valandstatetuple]
 
+# vim:sw=4:ts=4:ai:et

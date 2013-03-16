@@ -30,3 +30,4 @@ def createdelayline( name, numberofcells ):
     for i in range(1,numberofcells):
         vals[( '{0}_{1}'.format(name,i), 0 )] = 0
 
+# vim:sw=4:ts=4:ai:et
