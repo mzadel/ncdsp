@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from ncdsp import *
+from ncdsphelpers import connect
 
 
 # -(feedforward)--------------------------------------------
@@ -19,10 +20,8 @@ feedforwardcomb('ffc', 1, 0.5, 10 )
 # input: impulse at time 0, zeroes everywhere else
 valfuncs['x'] = lambda time: 1 if time == 0 else 0
 
-# connect x to ffc_in
-# connect ffc_out to y
-valfuncs['ffc_in'] = lambda t: read(('x',t))
-valfuncs['y'] = lambda t: read(('ffc_out',t))
+connect('ffc_in','x')
+connect('y','ffc_out')
 
 print 'feedforward'
 for t in range(50):
@@ -52,10 +51,8 @@ feedbackcomb('fbc', 0.8, 0.1, 10 )
 # input: impulse at time 0, zeroes everywhere else
 valfuncs['x'] = lambda time: 1 if time == 0 else 0
 
-# connect x to fbc_in
-# connect fbc_out to y
-valfuncs['fbc_in'] = lambda t: read(('x',t))
-valfuncs['y'] = lambda t: read(('fbc_out',t))
+connect('fbc_in','x')
+connect('y','fbc_out')
 
 print 'feedback'
 for t in range(50):

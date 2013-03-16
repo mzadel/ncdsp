@@ -50,4 +50,11 @@ def createdelayline( name, numberofcells ):
 # ('x',time-10) exists.
 
 
+# shorthard for connecting y to x, ie:
+# y <- x
+# or y[n] = x[n]
+def connect( y, x ):
+    valfuncs[y] = lambda state: read((x,state))
+
+
 # vim:sw=4:ts=4:ai:et
