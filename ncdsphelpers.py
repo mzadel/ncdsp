@@ -1,6 +1,18 @@
 
 from ncdsp import *
 
+
+# createdelayline() creates a delay line, implemented as a 'bucket brigade' of
+# cells.
+#
+# Each cell passes its value to the next cell in the chain at each timestep.
+#
+# You supply the delay line name as an argument.  The value 'name_output' is an
+# alias for the last cell in the chain.
+#
+# You additionally have to define a value called 'name_input', which the first
+# cell in the chain takes its value from.
+
 def createdelayline( name, numberofcells ):
 
     for i in range(1,numberofcells):
