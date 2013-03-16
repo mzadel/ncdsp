@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 from ncdsp import *
-from ncdsphelpers import connect
 
 
 # -(feedforward)--------------------------------------------
@@ -18,14 +17,11 @@ def feedforwardcomb( name, b0, bM, M ):
 feedforwardcomb('ffc', 1, 0.5, 10 )
 
 # input: impulse at time 0, zeroes everywhere else
-valfuncs['x'] = lambda time: 1 if time == 0 else 0
-
-connect('ffc_in','x')
-connect('y','ffc_out')
+valfuncs['ffc_in'] = lambda time: 1 if time == 0 else 0
 
 print 'feedforward'
 for t in range(50):
-    print t, 'x', read(('x',t)), 'y', read(('y',t))
+    print t, 'ffc_in', read(('ffc_in',t)), 'ffc_out', read(('ffc_out',t))
 
 
 
@@ -49,14 +45,11 @@ def feedbackcomb( name, b0, aM, M ):
 feedbackcomb('fbc', 0.8, 0.1, 10 )
 
 # input: impulse at time 0, zeroes everywhere else
-valfuncs['x'] = lambda time: 1 if time == 0 else 0
-
-connect('fbc_in','x')
-connect('y','fbc_out')
+valfuncs['fbc_in'] = lambda time: 1 if time == 0 else 0
 
 print 'feedback'
 for t in range(50):
-    print t, 'x', read(('x',t)), 'y', read(('y',t))
+    print t, 'fbc_in', read(('fbc_in',t)), 'fbc_out', read(('fbc_out',t))
 
 
 # vim:sw=4:ts=4:ai:et
