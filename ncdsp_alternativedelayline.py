@@ -19,6 +19,11 @@ for t in range(0,100):
 for t in range(-40,0):
     vals[('orig',t)] = 2
 
+# you could also do something like
+#  valfuncs['orig'] = lambda t: 0 if t>=0 else 2
+# but the above example spells out what samples are strictly necessary to be
+# defined before time 0
+
 # introduce a couple of impulses
 vals[('orig',0)] = 1
 vals[('orig',7)] = 5
