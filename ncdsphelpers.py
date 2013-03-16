@@ -5,6 +5,7 @@ def createdelayline( name, numberofcells ):
 
     for i in range(1,numberofcells):
         # labels for each cell are (name,cellnum) tuples
+        # each cell gets the value of the previous cell at the previous timestep
 
         # define the valfuncs for each of the cells.
         # problem: if we just pass in name and i into a lambda, they'll refer
