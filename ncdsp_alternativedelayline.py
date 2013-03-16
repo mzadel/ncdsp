@@ -8,7 +8,6 @@
 # defined before time 0
 #
 
-import sys
 from ncdsp import *
 
 # set up the original number we're going to delay
