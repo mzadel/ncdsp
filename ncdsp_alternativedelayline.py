@@ -28,13 +28,13 @@ valfuncs['delayed'] = lambda time: read( ('orig',time-40) )
 for time in range(50):
 
     # print timestep
-    print 't{0:2}'.format( time ),
+    print 't{0:2}     '.format( time ),
 
     # print the first cell's value
-    print 'orig:', read(('orig',time)), '         ' ,
+    print 'orig:', read(('orig',time)), '     ' ,
 
     # print the last cell's value
-    print '          delayed:', read(('delayed',time))
+    print 'delayed:', read(('delayed',time))
 
 
 # vim:sw=4:ts=4:ai:et
