@@ -13,6 +13,7 @@ from ncdsp import *
 # set up the original number we're going to delay
 # for the sake of demonstration the value of orig before time 0 is going to be
 # 2, and the value of orig at and after time 0 is going to 0
+# (typically, though, the value of orig before time 0 would be zero)
 for t in range(0,100):
     vals[('orig',t)] = 0
 for t in range(-40,0):
