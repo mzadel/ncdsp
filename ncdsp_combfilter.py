@@ -31,7 +31,7 @@ for t in range(50):
 
 # -(feedback)-----------------------------------------------
 
-# clear out the preivous state
+# clear out the previous state
 vals.clear()
 valfuncs.clear()
 
