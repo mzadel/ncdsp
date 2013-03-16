@@ -3,7 +3,7 @@ from ncdsp import *
 
 
 # createdelayline() creates a delay line, implemented as a 'bucket brigade' of
-# cells.
+# cells.  This mimics how a delay line is typically laid out in memory.
 #
 # Each cell passes its value to the next cell in the chain at each timestep.
 #
@@ -41,5 +41,13 @@ def createdelayline( name, numberofcells ):
     # (so that it'll pull its value from name_firstcell)
     for i in range(1,numberofcells):
         vals[( '{0}_{1}'.format(name,i), 0 )] = 0
+
+
+# an alternative way to do a delay is to take inspiration from a difference
+# equation formulation:
+#  valfuncs['y'] = lambda time: read(('x',time-10))
+# for a 10-sample delay.  The catch with this is that you have to ensure that
+# ('x',time-10) exists.
+
 
 # vim:sw=4:ts=4:ai:et
