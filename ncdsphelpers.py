@@ -19,8 +19,8 @@ def createdelayline( name, numberofcells ):
         # labels for each cell are (name,cellnum) tuples
         # each cell gets the value of the previous cell at the previous timestep
 
-    # define the valfuncs for each of the cells.
-    # problem: if we just pass in name and i into a lambda, they'll refer
+        # define the valfuncs for each of the cells.
+        # problem: if we just pass in name and i into a lambda, they'll refer
         # to the variables in the closure, which'll be the last values they
         # were set to in the loop.
         # instead, makefunc() returns the lambda we need.  we supply the name
