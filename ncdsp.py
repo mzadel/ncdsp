@@ -18,7 +18,11 @@ def read( valandstatetuple ):
     # compute and cache the value at this state if it hasn't been computed yet
     if valandstatetuple not in vals.keys():
         vallabel,statelabel = valandstatetuple
-        vals[valandstatetuple] = valfuncs[vallabel](statelabel)
+        try:
+            vals[valandstatetuple] = valfuncs[vallabel](statelabel)
+        except KeyError:
+            print 'read(): KeyError while trying to read value with label', valandstatetuple
+            raise
 
     # done reading
     reading.remove(valandstatetuple)
