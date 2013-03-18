@@ -4,8 +4,6 @@
 # ncdsp_delaylineoptions.py
 #
 
-M = 5
-
 vals = {}
 valfuncs = {}
 
@@ -16,7 +14,7 @@ def read( label ):
     return vals[label]
 
 valfuncs['x'] = lambda time: 1.0 if time==0 else 0.0
-valfuncs['y'] = lambda time: read(('x',time-M))
+valfuncs['y'] = lambda time: read(('x',time-5))
 
 xs = [ read(('x',n)) for n in range(40) ]
 print xs
