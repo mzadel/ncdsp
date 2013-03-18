@@ -1,7 +1,7 @@
 
 -- input: impulse at time n=0
-x 0 =  1.0
-x n =  0.0
+x 0 = 1.0
+x n = 0.0
 -- nb: x 0 has to be first here -- it matches them in order
 
 -- delay output by five samples
