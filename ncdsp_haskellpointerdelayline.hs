@@ -30,4 +30,5 @@ main = do
 	print xs
 	print ys
 
+-- notice how the contents of the delay line are different!!
 
