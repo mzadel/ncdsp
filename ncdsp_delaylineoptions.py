@@ -33,7 +33,10 @@ valfuncs.clear()
 
 valfuncs['x'] = lambda time: 1.0 if time==0 else 0.0
 
-valfuncs[('delay',0)] = lambda time: read(('x',time))
+# delay line.  NB, we introduce an extra step of delay in the first cell
+# there would be only a delay of 4, even with 5 cells of delay, without that
+# (either the read or the write have to introduce an extra tick of delay)
+valfuncs[('delay',0)] = lambda time: read(('x',time-1))
 valfuncs[('delay',1)] = lambda time: read((('delay',0),time-1))
 valfuncs[('delay',2)] = lambda time: read((('delay',1),time-1))
 valfuncs[('delay',3)] = lambda time: read((('delay',2),time-1))
@@ -46,8 +49,6 @@ print xs
 ys = [ read(('y',n)) for n in range(40) ]
 print ys
 
-# so with this setup, there's only a delay of 4, even with 5 cells of delay
-# either the read or the write have to introduce an extra tick of delay
 
 
 
