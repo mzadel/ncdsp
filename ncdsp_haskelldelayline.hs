@@ -17,5 +17,7 @@ y(n) = delay 4 (n-1)
 xs = [ x(n) | n <- [0..40] ]
 ys = [ y(n) | n <- [0..40] ]
 
-main = print ys
+main = do
+	print xs
+	print ys
 
