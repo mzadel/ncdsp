@@ -71,8 +71,8 @@ print 'the pointer version'
 
 xs = [ read(('x',n)) for n in range(40) ]
 print xs
-ys = [ read(('y',n)) for n in range(40) ]
-print ys
+#ys = [ read(('y',n)) for n in range(40) ]
+#print ys
 
 
 
