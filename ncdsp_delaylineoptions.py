@@ -74,5 +74,10 @@ print xs
 ys = [ read(('y',n)) for n in range(40) ]
 print ys
 
+# maybe do this where you go: compute these cells for this timestep
+# and make it stateful, in the way that it would be in matlab or whatever
+# and then you can just throw and exception if the timesteps are done out of order
+# it might be easier to write (the above is a little unituitive, I think...)
+
 
 # vim:sw=4:ts=4:et:ai
