@@ -50,6 +50,15 @@ ys = [ read(('y',n)) for n in range(40) ]
 print ys
 
 
+# -(pointer delay line)-------------------------------------
+
+valfuncs['pointer'] = lambda n: n % 5
+
+valfuncs[('delay',0)] = lambda n: read((('delay',0),n)) if read(('pointer',n))!=0 else # else the previous value of x
+
+
+
+
 
 
 # vim:sw=4:ts=4:et:ai
