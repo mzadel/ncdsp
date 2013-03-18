@@ -59,12 +59,14 @@ valfuncs['pointer'] = lambda n: n % 5
 
 valfuncs['x'] = lambda time: 1.0 if time==0 else 0.0
 
-valfuncs[('delay',0)] = lambda n: read((('delay',0),n-1)) if read(('pointer',n))!=0 else read(('x',n-1))
-valfuncs[('delay',1)] = lambda n: read((('delay',1),n-1)) if read(('pointer',n))!=1 else read(('x',n-1))
-valfuncs[('delay',2)] = lambda n: read((('delay',2),n-1)) if read(('pointer',n))!=2 else read(('x',n-1))
-valfuncs[('delay',3)] = lambda n: read((('delay',3),n-1)) if read(('pointer',n))!=3 else read(('x',n-1))
-valfuncs[('delay',4)] = lambda n: read((('delay',4),n-1)) if read(('pointer',n))!=4 else read(('x',n-1))
+valfuncs[('delay',0)] = lambda n: read((('delay',0),n-1)) if read(('pointer',n))!=0 else read(('x',n))
+valfuncs[('delay',1)] = lambda n: read((('delay',1),n-1)) if read(('pointer',n))!=1 else read(('x',n))
+valfuncs[('delay',2)] = lambda n: read((('delay',2),n-1)) if read(('pointer',n))!=2 else read(('x',n))
+valfuncs[('delay',3)] = lambda n: read((('delay',3),n-1)) if read(('pointer',n))!=3 else read(('x',n))
+valfuncs[('delay',4)] = lambda n: read((('delay',4),n-1)) if read(('pointer',n))!=4 else read(('x',n))
 
+# read from the existing value of a cell as you go into the timestep, *before*
+# overwriting the cell
 valfuncs['y'] = lambda n: read((('delay',read(('pointer',n))),n-1))
 
 print 'the pointer version'
@@ -73,7 +75,6 @@ xs = [ read(('x',n)) for n in range(40) ]
 print xs
 ys = [ read(('y',n)) for n in range(40) ]
 print ys
-
 
 
 # vim:sw=4:ts=4:et:ai
