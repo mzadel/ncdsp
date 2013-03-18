@@ -52,12 +52,27 @@ print ys
 
 # -(pointer delay line)-------------------------------------
 
+vals.clear()
+valfuncs.clear()
+
 valfuncs['pointer'] = lambda n: n % 5
 
-valfuncs[('delay',0)] = lambda n: read((('delay',0),n)) if read(('pointer',n))!=0 else # else the previous value of x
+valfuncs['x'] = lambda time: 1.0 if time==0 else 0.0
 
+valfuncs[('delay',0)] = lambda n: read((('delay',0),n)) if read(('pointer',n))!=0 else read(('x',time-1))
+valfuncs[('delay',1)] = lambda n: read((('delay',1),n)) if read(('pointer',n))!=1 else read(('x',time-1))
+valfuncs[('delay',2)] = lambda n: read((('delay',2),n)) if read(('pointer',n))!=2 else read(('x',time-1))
+valfuncs[('delay',3)] = lambda n: read((('delay',3),n)) if read(('pointer',n))!=3 else read(('x',time-1))
+valfuncs[('delay',4)] = lambda n: read((('delay',4),n)) if read(('pointer',n))!=4 else read(('x',time-1))
 
+valfuncs['y'] = lambda time: read((('delay',4),time))
 
+print 'the pointer version'
+
+xs = [ read(('x',n)) for n in range(40) ]
+print xs
+ys = [ read(('y',n)) for n in range(40) ]
+print ys
 
 
 
