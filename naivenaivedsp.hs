@@ -14,4 +14,5 @@ ys = [ y(n) | n <- [0..40] ]
 main = print ys
 
 -- this is actually quite clear...
+-- nb the parens are optional I think
 
