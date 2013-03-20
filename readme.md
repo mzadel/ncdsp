@@ -94,7 +94,7 @@ a million or more functions to determine what that value is.
 I've made an alternative version here that caches a given variable's value at a
 given time when you ask for it.  Subsequent reads will use the variable's
 cached value instead of recursing through the functions to re-determine its
-value.
+value.  (That is, I'm 'memoizing' the functions.)
 
 The variable values are kept in a Python dictionary called vals.  Variable
 values at a given timestep are referred to using a 2-tuple containing the
