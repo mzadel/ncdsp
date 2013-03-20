@@ -3,7 +3,7 @@
 
 "naive (but correct) digital signal processing"
 
-*Summary:* This project illustrates how you can use high-level, purely
+**Summary:** This project illustrates how you can use high-level, purely
 functional code to create clean and correct reference implementations of
 digital signal processing (DSP) algorithms.
 
