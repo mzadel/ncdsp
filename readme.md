@@ -28,21 +28,30 @@ Haskell.
 
 Say we want to implement a simple five-sample delay, corresponding to the
 following difference equation:
+
     y(n) = x(n-5)
 
 We could implement this functionally in Python as follows:
+
     def y(n): return x(n-5)
+
 We could then define the values of x at all timesteps:
+
     def x(n): return 1.0 if n==0 else 0.0
+
 which means that x(n) is 1.0 at time 0, and 0.0 the rest of the time.  This is
 a simple impulse at time zero.
 
 To evaluate this, we would just call y() to determine the value of the output
 at each timestep.  We could do it this way:
+
     for n in range(40):
         print y(n)
+
 or we could use a list comprehension to collect the values into a list:
+
     print [ y(n) for n in range(40) ]
+
 We see that we have a delay of five samples.
 
 The important point here, though, is that the function that gives the values
@@ -77,6 +86,7 @@ input/output pair for later comparison.
 This prints out two lists: one for what the value of x() is at each timestep
 starting at zero (ie, the input), and one for the value of what y() is at each
 timestep.  We get
+
     [1.0, 6.0, 0.0, 3.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
     [0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 6.0, 0.0, 3.0, 7.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
 
@@ -100,20 +110,25 @@ The variable values are kept in a Python dictionary called vals.  Variable
 values at a given timestep are referred to using a 2-tuple containing the
 variable's name and the timestep.  ('x',100) would refer to the value of the
 variable x at timestep n=100.
+
     vals[('x',100)] = 1.0       # cache the value for 'x' and timestep 100
 
 The function that describes how to evaluate a variable at a given timestep is
 defined like so:
+
     valfuncs['x'] = lambda time: 1.0 if time==0 else 0.0
 
 Finally, to read a given variable's value at a given timestep, you use the read() function:
+
     valfuncs['y'] = lambda time: read(('x',time-5))
+
 valfuncs here is a dictionary that maps variable names to anonymous functions
 (ie lambdas) that describe how to derive them
 
 read() basically just checks if there's a cached value for what you're trying
 to read, and if it's not there, computes the value by calling the appropriate
 function.  It's more or less just this:
+
     def read( label ):
         if label not in vals.keys():
             vallabel, statelabel = label
@@ -126,6 +141,7 @@ return.)
 
 So if you wanted to do what we did above (a 5-sample delay), you'd formulate it
 as follows:
+
     from ncdsp import *
     valfuncs['x'] = lambda time: 1.0 if time==0 else 0.0
     valfuncs['y'] = lambda time: read(('x',time-5))
@@ -175,9 +191,9 @@ recursion.
 
 Here we list a directory of the examples that given in this project.
 
-    a comparison of delay implementations
-    a reverb
-    waveguides and scattering junctions
+ - a comparison of delay implementations
+ - a reverb
+ - waveguides and scattering junctions
 
 ## Closing
 
