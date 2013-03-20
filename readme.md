@@ -3,7 +3,11 @@
 
 "naive (but correct) digital signal processing"
 
-DSP implementations can be hard to translate into efficient code, espcially if
+*Summary:* This project illustrates how you can use high-level, purely
+functional code to create clean and correct reference implementations of
+digital signal processing (DSP) algorithms.
+
+DSP implementations can be hard to translate into efficient code, especially if
 you're just learning signal processing for the first time.  What order should I
 do these operations in?  When do I increment the pointer?  This array has to be
 *how* big again?  The point of the examples given in this project is to
