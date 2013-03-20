@@ -79,5 +79,44 @@ print ys
 # and then you can just throw and exception if the timesteps are done out of order
 # it might be easier to write (the above is a little unituitive, I think...)
 
+# -(imperative delay line)----------------------------------
+
+# this would be closer to a traditional imperative implementation of a delay
+# line
+
+pointer = 0
+delayline = [ 0.0, 0.0, 0.0, 0.0, 0.0 ]
+def tickdelay( inval ):
+    global pointer
+    global delayline
+
+    outval = delayline[pointer]
+    delayline[pointer] = inval
+
+    pointer = pointer+1
+    if pointer >= 5:
+        pointer = 0
+
+    return outval
+
+def x( time ):
+    if time==0: return 1.0
+    return 0.0
+
+# print the state after each tick
+
+print "imperative version"
+print ">>before starting:"
+print "pointer:", pointer
+print "delayline:", delayline
+print "x(0):", x(0)
+
+for n in range(40):
+    y = tickdelay( x(n) )
+    print ">>after doing timestep", n
+    print "pointer:", pointer
+    print "delayline:", delayline
+    print "x(n):", x(n)
+    print "y:", y
 
 # vim:sw=4:ts=4:et:ai
