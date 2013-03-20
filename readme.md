@@ -59,7 +59,7 @@ for each variable only calls other functions that give the value of variables,
 which get called recursively down to some base case (here, the definition of
 x(n)).  That way, we can think mathematically, and each variable's value is
 determined purely from the mathematical equations and not some global variable
-that's being mutated in a loop (which can be tricky to think about in a lot of
+that's being mutated in a loop (which can be tricky to reason about in a lot of
 cases).
 
 ### Dumping out the reference data
