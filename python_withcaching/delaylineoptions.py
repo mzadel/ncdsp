@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-# ncdsp_delaylineoptions.py
+# delaylineoptions.py
 #
 
 vals = {}

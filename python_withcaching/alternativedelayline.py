@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-# ncdsp_alternativedelayline.py
+# alternativedelayline.py
 #
 # make a delay line just by referring the past
 # the only trick is that you have to make sure the value you're delaying is

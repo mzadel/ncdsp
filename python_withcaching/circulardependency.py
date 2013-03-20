@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #
-# ncdsp_circulardependency.py
+# circulardependency.py
 #
 
 # test that the circular dependency checking works
