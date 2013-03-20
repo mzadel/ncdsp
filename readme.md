@@ -192,8 +192,8 @@ recursion.
 Here we list a directory of the examples that given in this project.
 
  - a comparison of delay implementations
- - a reverb
- - waveguides and scattering junctions
+ - a reverb (TODO)
+ - waveguides and scattering junctions (TODO)
 
 ## Closing
 
